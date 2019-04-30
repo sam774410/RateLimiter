@@ -1,0 +1,20 @@
+version: "3"
+
+services: 
+  app:
+    build: .
+    ports: 
+      - "3001:3001"
+    links: 
+      - redis
+    depends_on: 
+      - redis
+    command: go run main.go
+    tty: true 
+    restart: always
+
+  redis:
+    image: redis:alpine
+    restart: always
+    ports: 
+      - "6379:6379"
