@@ -10,7 +10,7 @@ Middleware
 ### 建置說明
 * 限制同一IP來源請求每小時最多1000次
 * 一小時內超過1000次請求回傳429(Too many requests)
-* response headers中加入剩餘請求次數(X-RateLimit-Remaining) &
+* 每次請求中 response headers 加入剩餘請求次數(X-RateLimit-Remaining) &
   重置時間(X-RateLimit-Reset)
 
 ### 啟動環境
