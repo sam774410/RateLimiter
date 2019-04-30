@@ -8,8 +8,8 @@ Middleware
 * DB: Redis: 5.0.3
 
 ### 建置說明
-* 限制同一IP來源請求每小時最多1000次
-* 一小時內超過1000次請求回傳429(Too many requests)
+* 限制同一IP來源請求每小時最多20次
+* 一小時內超過20次請求回傳429(Too many requests)
 * 每次請求中 response headers 加入剩餘請求次數(X-RateLimit-Remaining) &
   重置時間(X-RateLimit-Reset)
 
