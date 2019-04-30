@@ -4,13 +4,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/garyburd/redigo/redis"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	//load env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	r := gin.Default()
 
@@ -19,7 +27,7 @@ func main() {
 	})
 	r.GET("/draw", RateLimiter, Draw)
 
-	err := r.Run(":2000")
+	err = r.Run()
 	if err != nil {
 		log.Fatal("server start error: ", err)
 	}
@@ -41,9 +49,10 @@ func Draw(c *gin.Context) {
 func RateLimiter(c *gin.Context) {
 
 	//conn redis
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	conn, err := redis.Dial("tcp", os.Getenv("REDIS_HOST"),
+		redis.DialPassword(os.Getenv("REDIS_PWD")))
 	if err != nil {
-		log.Println("cannot connect to redis: ", err)
+		log.Fatal("cannot connect to redis: ", err)
 		return
 	}
 	defer conn.Close()

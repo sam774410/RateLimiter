@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.11-alpine 
 
 MAINTAINER "sam850118sam@gmail.com"
 
@@ -8,5 +8,6 @@ ADD . /app
 
 RUN go get -u github.com/gin-gonic/gin
 RUN go get github.com/gomodule/redigo/redis
+RUN go get github.com/joho/godotenv
 
-EXPOSE 3001
+EXPOSE 8080
