@@ -15,9 +15,5 @@ Middleware
 
 ### 啟動環境
 
-1. cd至middle資料夾
-2. 開啟local Redis DB (預設port: 6379)
-4. **啟動 main 執行檔** or **go run main.go**
-5. 開啟連結 127.0.0.1:2000/draw
-6. 查看response headers
-
+1. 激活網站 [web](https://ratelimiter-redis.herokuapp.com/)
+2. 查看網站 [web](https://ratelimiter-redis.herokuapp.com/draw) 及   response headers
