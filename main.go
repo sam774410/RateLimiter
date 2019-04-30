@@ -35,7 +35,7 @@ func main() {
 
 var (
 	//最大請求次數
-	MAXREQ = 1000
+	MAXREQ = 20
 
 	//Expire time 1 hr
 	EXPTIME = "3600"
@@ -81,7 +81,7 @@ func RateLimiter(c *gin.Context) {
 		}
 
 		//set header
-		c.Writer.Header().Set("X-RateLimit-Remaining", "999")
+		c.Writer.Header().Set("X-RateLimit-Remaining", "19")
 		c.Writer.Header().Set("X-RateLimit-Reset", EXPTIME)
 
 		c.Next()
@@ -115,7 +115,7 @@ func RateLimiter(c *gin.Context) {
 			c.Writer.Header().Set("X-RateLimit-Reset", strconv.Itoa(remainTime))
 
 			c.JSON(http.StatusTooManyRequests, gin.H{
-				"description": "too more requests, more than 1000 in an hour",
+				"description": "too more requests, more than 20 in an hour",
 				"wait":        s,
 			})
 
@@ -142,10 +142,10 @@ func RateLimiter(c *gin.Context) {
 
 			remainReq, _ := strconv.Atoi(v)
 
-			log.Println("remain: ", remainTime, " req: ", 1000-remainReq)
+			log.Println("remain: ", remainTime, " req: ", MAXREQ-remainReq)
 
 			//set header
-			c.Writer.Header().Set("X-RateLimit-Remaining", strconv.Itoa(1000-remainReq))
+			c.Writer.Header().Set("X-RateLimit-Remaining", strconv.Itoa(MAXREQ-remainReq))
 			c.Writer.Header().Set("X-RateLimit-Reset", strconv.Itoa(remainTime))
 
 			c.Next()
